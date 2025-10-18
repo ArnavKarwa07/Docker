@@ -1,0 +1,89 @@
+docker pull image_name => to pull image(latest version) from docker hub
+
+docker images => check what all images you have
+
+docker run image_name => to create NEW a container of that image
+
+docker run -it image_name => to create a NEW container run in iteractive mode
+
+docker ps -a => list out all containers
+
+docker ps => list out all RUNNING containers
+
+docker start container_ name or container_id => start preexisting container
+
+docker stop container_name or container_id => stop running container
+
+docker rmi image_name => remove/delete image
+
+docker rm container_name => remove/delete container
+
+docker pull image_name:version => to pull specific version of image from docker hub
+
+docker run -e variable=some_variable_value image_name => to create container with some env variables
+
+docker run -d image_name => run container in detach mode
+
+docker run --name container_name image_name => --name to give a specific name to the container
+
+docker run -p8080:3306 image_name => Port binding: bind host port to container pot - in this case map the host(local machine) 8080 port to 3306 port in the container
+
+docker logs container_id => access container logs
+
+docker exec -it container_id/bin/bash => exec allows you to run additional commands on a already running container
+( container bash )
+
+docker exec -it container_id/bin/sh => same for the container's shell
+
+docker network ls => list networks
+
+docker network create network_name => create network 
+
+docker run --network network_name => Run container in that network
+
+Example to run mongo:
+
+docker run -d -p:27017:27017 --name mongo --network mongo-network -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=qwerty mongo
+
+docker run -d -p8081:8081 --name mongo-express --network mongo-network -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin -e ME_CONFIG_MONGODB_ADMINPASSWORD=password -e ME_CONFIG_MONGODB_URL="mongodb://admin:qwerty@mongo:27017" mongo-express
+
+Docker Compose - /yaml - all containers in .yaml file are default a part of a single new network
+
+docker compose -f filename.yaml up -d => create and start containers in the file in detach mode
+
+docker compose -f filename.yaml down => delete/remove containers in that file
+
+Dockerizing a app - dockerfile
+imp instructions in a dockerfile
+
+FROM
+ENV
+WORKDIR
+RUN
+COPY
+CMD
+EXPOSE
+
+docker build -t test:1.0 .
+
+docker push
+
+Docker volumes - persistent data stores for containers
+
+docker volume ls => list volumes
+
+docker volume create volume_name => create custom volume
+by default is stored in C:\ProgramData\docker\volumes
+
+docker volume rm volume_name => remove volume
+
+Named volumes
+docker run -v vol_name:container_dir
+
+Anonymous volumes
+docker run -v MOUNT_PATH(container_dir)
+
+Bind mount
+docker run -v HOST_DIR:container_dir
+
+docker volume prune => delete unused volumes
